@@ -2,7 +2,7 @@
 to include the ".yml" extension. Feel free to copy & paste
 
 --------
--- file: models/staging/_sources.yml
+-- file: models/staging/_sources_jaffle_shop.yml
 --------
 version: 2
 
@@ -17,14 +17,14 @@ sources:
 2. Replace the hard-coded database references with the source function.
 
 --------
--- file: models/staging/stg_customers.sql
+-- file: models/staging/stg_jaffle_shop__customers.sql
 --------
 
 from {{ source('jaffle_shop', 'customers') }}
 
 
 --------
--- file: models/staging/stg_orders.sql
+-- file: models/staging/stg_jaffle_shop__orders.sql
 --------
 
 from {{ source('jaffle_shop', 'orders') }}
@@ -39,7 +39,7 @@ have been added to your project. If you do not see the sources linked be sure th
 that house the columns to be tested
 
 --------
--- file: models/staging/_sources.yml
+-- file: models/staging/_sources_jaffle_shop.yml
 --------
 version: 2
 
