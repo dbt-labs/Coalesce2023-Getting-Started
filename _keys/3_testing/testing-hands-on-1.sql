@@ -3,21 +3,21 @@ to include the ".yml" extension. Feel free to copy & paste
 
 2. Your YAML file should mirror the below. If you are receiving compilation errors,
 be sure to check the indentation. Also, be sure that your transformed column names from the
-staging layer are the same in your "_schema.yml" file. Copy & paste is encouraged with YAML.
+staging layer are the same in your "_schema_jaffle_shop.yml" file. Copy & paste is encouraged with YAML.
 
 --------
--- file: models/staging/_schema.yml
+-- file: models/staging/_schema_jaffle_shop.yml
 --------
 version: 2
 
 models:
-  - name: stg_customers
+  - name: stg_jaffle_shop__customers
     columns:
       - name: customer_id
         tests:
           - unique
           - not_null
-  - name: stg_orders
+  - name: stg_jaffle_shop__orders
     columns:
       - name: order_id
         tests:
@@ -30,7 +30,7 @@ models:
       - name: customer_id
         tests:
           - relationships:
-              to: ref('stg_customers')
+              to: ref('stg_jaffle_shop__customers')
               field: customer_id
 
 3. dbt test
