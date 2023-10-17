@@ -1,24 +1,16 @@
-with customers as (
+WITH customers AS (
 
-    select
-        id as customer_id,
-        first_name,
-        last_name
-
-    from raw.jaffle_shop_original.customers
+    SELECT
+        *
+    FROM {{ ref("stg_jaffle_shop__customer") }}
 
 ),
 
-orders as (
+orders AS (
 
-    select
-        id as order_id,
-        user_id as customer_id,
-        order_date,
-        status,
-        _etl_loaded_at
-
-    from raw.jaffle_shop_original.orders
+    SELECT 
+        *
+    FROM {{ ref('stg_jaffle_shop__orders') }}
 
 ),
 
