@@ -1,36 +1,26 @@
+/* {{
+    config(
+        materialized='table'
+    )
+}} */
+
 with customers as (
-
-    select
-        id as customer_id,
-        first_name,
-        last_name
-
-    from raw.jaffle_shop_original.customers
-
+    select * from {{ ref('stg_jaffle_shop__customers') }}
+    --used two underscores, chose ref, then started typing ref name
+    --can right click tab name and copy as ref
 ),
 
 orders as (
-
-    select
-        id as order_id,
-        user_id as customer_id,
-        order_date,
-        status,
-        _etl_loaded_at
-
-    from raw.jaffle_shop_original.orders
-
+    select * from {{ ref('stg_jaffle_shop__orders') }}
 ),
 
 customer_orders as (
 
     select
         customer_id,
-
         min(order_date) as first_order_date,
         max(order_date) as most_recent_order_date,
         count(order_id) as number_of_orders
-
     from orders
 
     group by 1
@@ -49,7 +39,6 @@ final as (
         coalesce(customer_orders.number_of_orders, 0) as number_of_orders
 
     from customers
-
     left join customer_orders using (customer_id)
 
 )

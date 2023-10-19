@@ -1,0 +1,17 @@
+sources: ##tells DBT where to look for data at
+  - name: jaffle_shop ##this renames the schema below 
+    schema: jaffle_shop_original ##original schema we are pulling from in Snowflake
+    database: raw
+    ##could add freshness block here for source level
+    tables:
+      - name: customers ## this is like the alias table name. what you want to see. Changing this changes all the ref macros
+        ##identifier: customers ##This would be the actual table name. 
+      - name: orders
+        freshness:
+          warn_after: ##you dont have to do both a warn AND error. can do minute, hour, day
+            count: 2
+            period: day
+          error_after:
+            count: 4
+            period: day
+        loaded_at_field: _etl_loaded_at ##this is a timestamp field

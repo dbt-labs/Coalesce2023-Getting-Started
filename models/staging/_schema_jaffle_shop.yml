@@ -1,0 +1,20 @@
+models:
+  - name: stg_jaffle_shop__customers
+    description: description
+    columns:
+        - name: customer_id ##this is the column name from model, not from source
+          tests:
+            - unique
+            - not_null
+  - name: stg_jaffle_shop__orders
+    columns:
+        - name: status
+          tests:
+            - accepted_values:
+                values:
+                  - "pending" ##this is case sensative
+                  - "shipped"
+                  - "returned"
+                  - "return_pending"
+                  - "placed"
+                  - "completed"
